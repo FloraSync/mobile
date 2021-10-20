@@ -1,4 +1,4 @@
-package com.example.florasync_mobile
+package com.florasync.florasync_mobile
 
 import io.flutter.embedding.android.FlutterActivity
 
