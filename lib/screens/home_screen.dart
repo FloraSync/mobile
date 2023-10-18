@@ -15,9 +15,9 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
-          child: Column(
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const <Widget>[
+            children: <Widget>[
               // Create a header that says "Mission Control" in Roboto font, size 30, and bold weight. It should take up the top 10% of the screen and be centered
               
 

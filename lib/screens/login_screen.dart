@@ -41,8 +41,7 @@ class LoginScreen extends StatelessWidget {
                 },
                 child: const Text('Login'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.teal[300],
+                  foregroundColor: Colors.teal[300], backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
                   ),
@@ -56,8 +55,7 @@ class LoginScreen extends StatelessWidget {
                 },
                 child: const Text('Create an Account'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.teal[300],
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white, backgroundColor: Colors.teal[300],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
                   ),
