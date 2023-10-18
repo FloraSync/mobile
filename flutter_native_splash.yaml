@@ -1,0 +1,4 @@
+flutter_native_splash:
+  image: assets/florasync.png
+  color: "42a5f5"
+  video: assets/sunrise.mp4
