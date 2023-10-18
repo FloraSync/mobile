@@ -46,7 +46,7 @@ class RegisterScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   // lower prefix 20 px from top
                   isDense: true,
-                  prefixIcon:Text("\@"),
+                  prefixIcon:Text("@"),
                   prefixIconConstraints: BoxConstraints(minWidth: 0, minHeight: 0),
                   hintText: 'Handle'
                 ),
@@ -66,8 +66,7 @@ class RegisterScreen extends StatelessWidget {
                 },
                 child: const Text('Register with Email'),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.teal[300],
+                  foregroundColor: Colors.teal[300], backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16.0),
                   ),
@@ -79,8 +78,7 @@ class RegisterScreen extends StatelessWidget {
 
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
-                  onPrimary: Colors.blue[300],
+                  foregroundColor: Colors.blue[300], backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16.0),
                   ),
