@@ -12,20 +12,50 @@ void main() {
   FlutterNativeSplash.remove();
 }
 
+// class FloraSync extends StatelessWidget {
+//   const FloraSync({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       initialRoute: '/login',
+//       routes: {
+//         '/': (context) => const HomeScreen(loggedIn: false, responseBody: ""),
+//         '/login': (context) => LoginScreen(),
+//         '/home': (context) =>
+//             const HomeScreen(loggedIn: true, responseBody: ""),
+//         '/register': (context) => const RegisterScreen(),
+//       },
+//     );
+//   }
+// }
+
 class FloraSync extends StatelessWidget {
   const FloraSync({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) => const HomeScreen(loggedIn: false),
-        '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(loggedIn: true),
+        '/login': (context) => LoginScreen(),
         '/register': (context) => const RegisterScreen(),
+      },
+      onGenerateRoute: (settings) {
+        if (settings.name == '/home') {
+          final args = settings.arguments as Map<String, dynamic>;
+          return MaterialPageRoute(
+            builder: (context) => HomeScreen(
+              loggedIn: args['loggedIn'] ?? false,
+              responseBody: args['responseBody'] ?? "",
+            ),
+          );
+        }
+        // Define other dynamic routes here if necessary
+
+        // Return null for any unspecified routes
+        return null;
       },
     );
   }
 }
-

@@ -4,7 +4,9 @@
 import 'package:flutter/material.dart';
 
 class FloraSyncAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const FloraSyncAppBar({Key? key, required this.context, required this.loggedIn}) : super(key: key);
+  const FloraSyncAppBar(
+      {Key? key, required this.context, required this.loggedIn})
+      : super(key: key);
 
   final BuildContext context;
   final bool loggedIn;
@@ -13,22 +15,22 @@ class FloraSyncAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       // add 10% bottom padding to the app bar
-      
+
       title: Image.asset(
         'assets/florasync.png',
-        width: MediaQuery.of(context).size.width * 0.6,
-        
-
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.height * 0.05,
       ),
       // add styling to the app bar
       backgroundColor: Colors.teal[200],
-      
-      
+
       centerTitle: true,
-      leading: loggedIn ? IconButton(
-        icon: const Icon(Icons.menu),
-        onPressed: () {},
-      ) : null,
+      leading: loggedIn
+          ? IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {},
+            )
+          : null,
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(10),
         child: Container(),

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:florasync_mobile/widgets/app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key, required this.loggedIn}) : super(key: key);
+  const HomeScreen(
+      {Key? key, required this.loggedIn, required this.responseBody})
+      : super(key: key);
 
   final bool loggedIn;
+  final String responseBody;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +18,25 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.9,
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // Create a header that says "Mission Control" in Roboto font, size 30, and bold weight. It should take up the top 10% of the screen and be centered
-              
-
-              
+              const Text(
+                'Mission Control!',
+                style: TextStyle(
+                  fontFamily: "Lemon",
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'This is the home screen. You can only see this if you are logged in. $loggedIn\n $responseBody',
+                style: const TextStyle(
+                  fontFamily: "OpenSans",
+                  fontSize: 16,
+                ),
+              ),
             ],
           ),
         ),

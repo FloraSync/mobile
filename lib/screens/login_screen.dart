@@ -1,13 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:florasync_mobile/widgets/app_bar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void _submitData() async {
+    final enteredEmail = emailController.text;
+    final enteredPassword = passwordController.text;
+
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://0.0.0.0:8000/api/login'), // Replace with your API endpoint
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'email': enteredEmail,
+          'password': enteredPassword,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Save the response body into the context
+
+        // Navigate to the home screen if the login is successful
+        // add our response to the shared preferences
+        // and then navigate to the home screen
+        print('Login successful!');
+        print(response.body);
+        Navigator.pushReplacementNamed(context, '/home',
+            arguments: {'loggedIn': true, 'responseBody': response.body});
+      } else {
+        // Handle error case
+        print('Login failed with status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      print("Error caught in Login: ");
+      print(error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // implement FloraSyncAppBar from lib/widgets/app_bar.dart
       appBar: FloraSyncAppBar(context: context, loggedIn: true),
       body: Center(
         child: SizedBox(
@@ -15,7 +61,6 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // centered Florasync slogan in roboto font, 
               const Text(
                 'Making plants love technology',
                 textAlign: TextAlign.center,
@@ -26,67 +71,43 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 50),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Email'),
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(hintText: 'Email'),
               ),
-              const TextField(
-                decoration: InputDecoration(hintText: 'Password'),
+              TextField(
+                controller: passwordController,
+                decoration: const InputDecoration(hintText: 'Password'),
                 obscureText: true,
               ),
               const SizedBox(height: 20),
-              // Login Button
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/home');
-                },
-                child: const Text('Login'),
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.teal[300], backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(32.0),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: ElevatedButton(
+                  onPressed: _submitData,
+                  child: const Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.teal[300],
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0),
+                    ),
                   ),
                 ),
               ),
-
-              // Create an Account Button
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
                 child: const Text('Create an Account'),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.teal[300],
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.teal[300],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
               ),
-              // ElevatedButton.icon(
-              //   icon: const Icon(Icons.g_mobiledata_rounded, color: Colors.blue), // Replace with suitable email icon
-              //   label: const Text('Login with Google'),
-
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     foregroundColor: Colors.blue, backgroundColor: Colors.white,
-              //   ),
-              // ),
-              // ElevatedButton.icon(
-              //   icon: const Icon(Icons.account_tree_outlined, color: Colors.white), // Replace with suitable GitHub icon
-              //   label: const Text('Login with Github'),
-
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     foregroundColor: Colors.white, backgroundColor: Colors.black,
-              //   ),
-              // ),
-              // ElevatedButton.icon(
-              //   icon: const Icon(Icons.computer, color: Colors.white), // Replace with suitable Microsoft icon
-              //   label: const Text('Login with Microsoft'),
-              //   onPressed: () {},
-              //   style: ElevatedButton.styleFrom(
-              //     foregroundColor: Colors.blue, backgroundColor: Colors.yellow,
-              //   ),
-              // ),
             ],
           ),
         ),
